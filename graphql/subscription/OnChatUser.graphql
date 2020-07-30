@@ -1,0 +1,6 @@
+subscription OnChatUser {
+    ChatId {
+        screenName
+        isBot
+    }
+}
