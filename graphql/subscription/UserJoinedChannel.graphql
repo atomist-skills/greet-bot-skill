@@ -1,0 +1,10 @@
+subscription UserJoinedChannel {
+  UserJoinedChannel {
+    user {
+      screenName
+    }
+    channel {
+      name
+    }
+  }
+}

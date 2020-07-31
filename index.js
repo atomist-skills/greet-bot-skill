@@ -37,6 +37,10 @@ var buttonCallback = async (request) => {
     );
 }
 
+var doNothing = async (request) => {
+   console.log(`User ${request.data.UserJoinedChannel[0].user.screenName} joined channel ${request.data.UserJoinedChannel[0].channel.name}`);
+}
+
 exports.handler = api.handler(
    {
      OnChatUser: async (request) => {
@@ -47,6 +51,7 @@ exports.handler = api.handler(
      "test-command": async (request) => {
        postWelcomeMessage( request, request.source.slack.user.name)
      },
-     callback: buttonCallback
+     callback: buttonCallback,
+     UserJoinedChannel: doNothing
    }
 );
