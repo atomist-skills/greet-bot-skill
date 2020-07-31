@@ -1,12 +1,13 @@
 var api = require('@atomist/api-cljs/atomist.middleware');
 
 // create a block message here.  Can embed callbacks using the atomist_action.
-var postWelcomeMessage = async (request) => {
+var postWelcomeMessage = async (request, screenName) => {
+
    request.blockMessage(
      [{type: "section",
        text: {
          type: "mrkdwn",
-         text: `Welcome ${request.source.slack.user.name}`
+         text: `Welcome ${screenName}`
        },
        accessory: {
          type: "button",
@@ -17,12 +18,14 @@ var postWelcomeMessage = async (request) => {
          },
          value: "you'll get this data back in the callback!"
        }
-     }]
+     }],
+     screenName
    );
 }
 
 // this is a callback so this will update the previous message if it's clicked.
 var buttonCallback = async (request) => {
+
     request.blockMessage(
      [{
         type: "section",
@@ -36,40 +39,14 @@ var buttonCallback = async (request) => {
 
 exports.handler = api.handler(
    {
-     OnChatUser: (request) => {
+     OnChatUser: async (request) => {
        if (!request.testMode) {
-         postWelcomeMessage(request);
+         await postWelcomeMessage( request, request.data.ChatId[0].screenName );
        }
      },
-     "test-command": postWelcomeMessage,
+     "test-command": async (request) => {
+       postWelcomeMessage( request, request.source.slack.user.name)
+     },
      callback: buttonCallback
    }
-);
-
-exports.handler(
-//  {
-//    correlation_id: "corrid",
-//    team: {id: "T095SFFBK"},
-//    command: "test-command",
-//    api_version: "1",
-//    source: {
-//      slack: {
-//        team: {
-//          id: "asdf"
-//        },
-//        user: {
-//          name: "slimslenderslacks"
-//        }
-//      }
-//    }
-//  },
-  {
-    data: {},
-    extensions: {
-      operationName: "OnChatUser",
-      correlation_id: "corrid",
-      team_id: "T095SFFBK"
-    }
-  },
-  (obj) => {console.info(`MOCK:  ${JSON.stringify(obj)}`);}
 );

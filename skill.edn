@@ -29,6 +29,6 @@
  {:gcf
   [{:name "atomist/greet-bot-skill",
     :entryPoint "eventhandler",
-    :memory 1024,
-    :runtime "nodejs10",
+    :memory 1024, 
+    :runtime "nodejs10", 
     :timeout 120}]}}
