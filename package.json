@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "scripts": {
     "bundle": "bundle",
-    "skill": "npm run bundle",
-    "atm:lint:prettier": "prettier --write"
+    "skill": "npm run build && npm run bundle",
+    "atm:lint:prettier": "prettier --write",
+    "build:watch": "shadow-cljs watch dev",
+    "build": "shadow-cljs release release"
   },
   "dependencies": {
     "@atomist/api-cljs": "^0.4.67",
