@@ -1,21 +1,26 @@
 {:description
- "Show a ClojureScript based Slack Bot function",
+ "Greet new Users in our Slack team",
  :categories ["CHAT"],
  :license "Apache-2.0",
  :displayName "Greet Bot Skill",
  :name "greet-bot-skill",
- :author "slenderslack",
+ :author "Atomist",
  :dispatch "multiple",
  :commands
- [{:name "command",
+ [{:name "test-command",
    :description "Send everything that is addressed to @atomist",
-   :pattern "^.*$"}]
+   :pattern "^greeting test$"}]
  :resourceProviders
  [{:name "slack",
    :description "Slack",
    :typeName "SlackResourceProvider",
    :minRequired 0,
    :maxAllowed 1}]
+ :parameters
+ [{:boolean {:name "testMode"
+             :description "don't send but enable `@atomist greeting test`"
+             :displayName "Test Mode"
+             :required true}}]
  :iconUrl
  "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT-VIasIlmRrgzPGRGmrKxAroRYqCiN8pyjzLFEIUJeT-DNxU0d&usqp=CAU",
  :homepageUrl "https://github.com/slenderslack/bot-skill",
