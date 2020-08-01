@@ -1,5 +1,44 @@
 var api = require('@atomist/api-cljs/atomist.middleware');
 
+var modalDialog = {
+  view: {
+    type: "modal",
+    title: {
+      type: "plain_text",
+      text: "What brought you to Atomist?"
+    },
+    blocks: [
+      {
+        type: "input",
+        label: {
+          type: "plaint_text",
+          text: "Help!"
+        },
+        element: {
+          type: "plain_text_input",
+          action_id: "input1",
+          placeholder: {
+            type: "plain_text",
+            text: "Type in here"
+          },
+          multiline: true
+        },
+        optional: false
+      }
+    ],
+    close: {
+      type: "plain_text",
+      text: "Cancel"
+    },
+    submit: {
+      type: "plain_text",
+      text: "Submit"
+    },
+    private_metadata: "",
+    callback_id: "callback"
+  }
+}
+
 // create a block message here.  Can embed callbacks using the atomist_action.
 var postWelcomeMessage = async (request, screenName) => {
 
@@ -21,13 +60,23 @@ var postWelcomeMessage = async (request, screenName) => {
        type: "section",
        text: {
          type: "mrkdwn",
-         text: `We want to hear about the problems that you're looking to solve with event-driven automation. Drop us a few lines [over here] if there's something you'd like to see in our catalog.`
+         text: `We want to hear about the problems that you're looking to solve with event-driven automation. Drop us a few lines if there's something you'd like to see in our catalog.`
        },
+       accessory: {
+        type: "button",
+        atomist_action: {id: "callback", parameters: []},
+        text: {
+          type: "plain_text",
+          text: "I'm interested in"
+        },
+        value: "let's collect some input"
+      }
      }],
      screenName);
 }
 
 // this is a callback so this will update the previous message if it's clicked.
+// use #greet-bot-feedback
 var buttonCallback = async (request) => {
 
     request.blockMessage(
@@ -49,11 +98,11 @@ exports.handler = api.handler(
    {
      OnChatUser: async (request) => {
        if (!request.testMode) {
-         await postWelcomeMessage( request, request.data.ChatId[0].screenName );
+         await postWelcomeMessage( request, `@${request.data.ChatId[0].screenName}`);
        }
      },
      "test-command": async (request) => {
-       postWelcomeMessage( request, request.source.slack.user.name)
+       postWelcomeMessage( request, `@${request.source.slack.user.name}`);
      },
      callback: buttonCallback,
      UserJoinedChannel: doNothing
