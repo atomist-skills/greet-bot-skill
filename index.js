@@ -10,6 +10,7 @@ var modalDialog = {
     blocks: [
       {
         type: "input",
+        block_id: "",
         label: {
           type: "plaint_text",
           text: "Help!"
