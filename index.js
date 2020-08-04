@@ -80,17 +80,22 @@ var postWelcomeMessage = async (request, screenName) => {
 // use #greet-bot-feedback
 var buttonCallback = async (request) => {
 
-    console.log();
+  request.blockMessage(
+    [{type: "section",
+      text: {type: "mrkdwn",
+             text: `\`\`\`${request.stateValues.block1.input1.value}\`\`\``}}],
+    "#greet-bot-feedback"
+  );
 
-    request.blockMessage(
-     [{
-        type: "section",
-         text: {
-           type: "mrkdwn",
-           text: `Awesome to meet you!`
-         }
-     }]
-    );
+  request.blockMessage(
+    [{
+      type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `Awesome to meet you!`
+        }
+    }]
+  );
 }
 
 var doNothing = async (request) => {
