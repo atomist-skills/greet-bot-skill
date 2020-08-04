@@ -1,7 +1,6 @@
 var api = require('@atomist/api-cljs/atomist.middleware');
 
-var modalDialog = {
-  view: {
+var view = {
     type: "modal",
     title: {
       type: "plain_text",
@@ -10,7 +9,7 @@ var modalDialog = {
     blocks: [
       {
         type: "input",
-        block_id: "",
+        block_id: "block1",
         label: {
           type: "plaint_text",
           text: "Help!"
@@ -35,10 +34,9 @@ var modalDialog = {
       type: "plain_text",
       text: "Submit"
     },
-    private_metadata: "",
-    callback_id: "callback"
-  }
+    private_metadata: ""
 }
+
 
 // create a block message here.  Can embed callbacks using the atomist_action.
 var postWelcomeMessage = async (request, screenName) => {
@@ -65,12 +63,14 @@ var postWelcomeMessage = async (request, screenName) => {
        },
        accessory: {
         type: "button",
-        atomist_action: {id: "callback", parameters: []},
+        atomist_modal: {id: "callback", 
+                        parameters: [{name: "view",
+                                      value: JSON.stringify(view)}]},
         text: {
           type: "plain_text",
           text: "I'm interested in"
         },
-        value: "let's collect some input"
+        value: "up to 2000 characters"
       }
      }],
      screenName);
@@ -79,6 +79,8 @@ var postWelcomeMessage = async (request, screenName) => {
 // this is a callback so this will update the previous message if it's clicked.
 // use #greet-bot-feedback
 var buttonCallback = async (request) => {
+
+    console.log();
 
     request.blockMessage(
      [{
