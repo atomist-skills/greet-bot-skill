@@ -33,3 +33,4 @@ artifacts:
       memory: 1024
       runtime: nodejs10
       timeout: 120
+kick: 1
