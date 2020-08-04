@@ -70,7 +70,7 @@ var postWelcomeMessage = async (request, screenName) => {
           type: "plain_text",
           text: "I'm interested in"
         },
-        value: "up to 2000 characters"
+        value: "up to 2000 character"
       }
      }],
      screenName);
