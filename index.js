@@ -11,7 +11,7 @@ var view = {
         type: "input",
         block_id: "block1",
         label: {
-          type: "plaint_text",
+          type: "plain_text",
           text: "Help!"
         },
         element: {
