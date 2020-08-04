@@ -4,7 +4,7 @@ var view = {
     type: "modal",
     title: {
       type: "plain_text",
-      text: "What brought you to Atomist?"
+      text: "Problem Summary"
     },
     blocks: [
       {
