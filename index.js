@@ -84,7 +84,10 @@ var buttonCallback = async (request) => {
     await request.blockMessage(
       [{type: "section",
         text: {type: "mrkdwn",
-              text: `\`\`\`${request.stateValues.block1.input1.value}\`\`\``}}],
+               text: `input from ${request.source.slack.user.name}`}},
+       {type: "section",
+        text: {type: "mrkdwn",
+               text: `\`\`\`${request.stateValues.block1.input1.value}\`\`\``}}],
       "#greet-bot-feedback"
     );
   } catch(err) {  
