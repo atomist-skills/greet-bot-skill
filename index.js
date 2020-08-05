@@ -87,11 +87,6 @@ var buttonCallback = async (request) => {
               text: `\`\`\`${request.stateValues.block1.input1.value}\`\`\``}}],
       "#greet-bot-feedback"
     );
-    await request.blockMessage(
-      [{type: "section",
-        text: {type: "mrkdwn",
-               text: "what is happening?"}}], "#greet-bot-skill"
-    )
   } catch(err) {  
     console.error("failed to send greet-bot-feedback");
     console.error(err);
