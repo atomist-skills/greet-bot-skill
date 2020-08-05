@@ -88,6 +88,7 @@ var buttonCallback = async (request) => {
       "#greet-bot-feedback"
     );
   } catch(err) {
+    console.error("failed to send greet-bot-feedback");
     console.error(err);
   }
 
