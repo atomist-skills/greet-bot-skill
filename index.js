@@ -81,7 +81,7 @@ var postWelcomeMessage = async (request, screenName) => {
 var buttonCallback = async (request) => {
 
   try {
-    request.blockMessage(
+    await request.blockMessage(
       [{type: "section",
         text: {type: "mrkdwn",
               text: `\`\`\`${request.stateValues.block1.input1.value}\`\`\``}}],
