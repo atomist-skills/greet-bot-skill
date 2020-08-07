@@ -1,9 +1,10 @@
 description: Greet new Users in our Slack team
 license: Apache-2.0
 resourceProviders:
-  - name: slack
-    description: Slack
-    typeName: SlackResourceProvider
+  - name: chat
+    displayName: Chat
+    typeName: ChatProvider
+    description: Chat
     minRequired: 0
     maxAllowed: 1
 displayName: Greet Bot Skill
